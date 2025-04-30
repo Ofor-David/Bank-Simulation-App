@@ -11,16 +11,26 @@ public class AccountManager {
 
     //list accounts
     public void listAccounts() {
-        for (Account account : accounts) {
-            System.out.println("Listing accounts");
-            System.out.println(account.accountNo);
+        System.out.println("------------------");
+        if (accounts.isEmpty()){
+            System.out.println("No accounts created yet, create some!!");
+        }else {
+            for (Account account : accounts) {
+                System.out.println(account);
+            }
         }
+        System.out.println("-------------------\nPress Anything...");
+        new Scanner(System.in).nextLine();
     }
 
     //create accounts
     public void createAccount(String accountName) {
-        System.out.println("creating accounts");
+        System.out.println("-------------------");
         Account account = new Account(accountName);
+        accounts.add(account);
+        System.out.println("Account Created");
+        System.out.println("Press Anything...\n-------------------");
+        new Scanner(System.in).nextLine();
     }
     //delete accounts
 }

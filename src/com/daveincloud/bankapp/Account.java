@@ -35,4 +35,8 @@ public class Account {
         balance-=amount;
         System.out.println("Successfully withdrawal of " + formatter.format(amount));
     }
+
+    public String toString(){
+        return accountName+": "+accountNo;
+    }
 }
