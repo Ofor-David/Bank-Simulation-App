@@ -5,9 +5,10 @@ Projects in this repo is:
 ## Bank Simulation App
 ### Features
 - Create accounts
+- List all accounts
 - Deposit
 - Withdraw
-- View balances
+- View balances & Details
 - Transaction history
 ### Skills Displayed
 - Inheritance
