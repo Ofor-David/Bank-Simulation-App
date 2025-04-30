@@ -31,25 +31,41 @@ public class Account {
     }
 
     //deposit
-    public void deposit(double amount){
-        accountBal+=amount;
-        System.out.println("successfully deposited " + formatter.format(amount));
-        System.out.println("New Balance: "+formatter.format(getBalance()));
+    public void deposit(){
+        while (true) {
+            System.out.println("Enter deposit amount:");
+            try {
+                double amount = Double.parseDouble(scanner.nextLine()); //must be a double
+                if (amount > 0){
+                    accountBal += amount;
+                    System.out.println("successfully deposited " + formatter.format(amount));
+                    System.out.println("New Balance: " + formatter.format(getBalance()));
+                    break;
+                }else{
+                    System.out.println("Must be greater than 0!");
+                }
+
+            }catch (NumberFormatException e){
+                System.out.println("Numbers only!!");
+            }
+        }
     }
     //withdraw
     public void withdraw(){
         while (true){
             System.out.println("Current balance: "+ viewBalance());
-            System.out.println("Enter amount less than balance: ");
+            System.out.println("Enter amount to withdraw: ");
             try{
                 double amount = Double.parseDouble(scanner.nextLine());
-                if (amount<= getBalance()){
+                if (amount<= getBalance() && amount >= 1){
                     accountBal-=amount;
                     System.out.println(formatter.format(amount) + " Withdrawn succesfully.");
                     System.out.println("New Balance: "+formatter.format(getBalance()));
                     break;
-                }else{
-                    System.out.println("Enter amount greater then balance!! ");
+                }else if(amount < 1){ //refuse negative
+                    System.out.println("Minimum withdrawal is: $1 or greater!!");
+                }else{ //refuse
+                    System.out.println("Enter amount less then balance!! ");
                 }
 
             }catch (NumberFormatException e){

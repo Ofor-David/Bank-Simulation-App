@@ -62,9 +62,7 @@ public class AccountManager {
                             switch (choice){
                                 case 1:
                                     //deposit
-                                    System.out.println("Enter deposit amount:");
-                                    double toDeposit = Double.parseDouble(scanner.nextLine());
-                                    account.deposit(toDeposit);
+                                    account.deposit();
                                     System.out.println("--------------------\nPress Anything...");
                                     scanner.nextLine();
                                     break;
@@ -89,7 +87,7 @@ public class AccountManager {
                     }
 
                     //Todo: System.out.println("Press 4 to view transaction history");
-                    //Todo: fix negative balance, and negative deposit
+                    //Todo: Unique account number
                     //Todo: break out of page on account deletion
                     //Todo: Close scanners
                 }
