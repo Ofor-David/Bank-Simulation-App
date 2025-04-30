@@ -45,7 +45,7 @@ public class AccountManager {
         }else {
             for (Account account : accounts) {
                 if (accountNumber == account.getAccountNo()) {
-                    while(true){
+                    while(accounts.contains(account)){
                         //display account screen
                         System.out.println("------------------------");
                         System.out.println("Welcome to your personal account dashboard!!");
@@ -57,6 +57,7 @@ public class AccountManager {
                         System.out.println("Press 1 to deposit");
                         System.out.println("Press 2 to withdraw");
                         System.out.println("Press 3 to delete account");
+
                         try {
                             int choice = Integer.parseInt(scanner.nextLine());
                             switch (choice){
@@ -74,9 +75,9 @@ public class AccountManager {
                                     break;
                                 case 3:
                                     //delete account
-                                    accounts.remove(account);
                                     System.out.println("Account deleted successully!\n Press anything");
                                     scanner.nextLine();
+                                    accounts.remove(account);
                                     break;
                                 default:
                                     System.out.println("Invalid option");
@@ -90,6 +91,8 @@ public class AccountManager {
                     //Todo: Unique account number
                     //Todo: break out of page on account deletion
                     //Todo: Close scanners
+                }else{
+                    break;
                 }
             }
         }

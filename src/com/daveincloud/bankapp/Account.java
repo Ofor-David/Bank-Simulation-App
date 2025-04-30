@@ -16,9 +16,9 @@ public class Account {
 
     //constructor
     public Account(String accountName){
-        setAccountName(accountName);
-        setAccountNumber();
-        setAccountBalance();
+            setAccountName(accountName);
+            setAccountNumber();
+            setAccountBalance();
     }
     //view account details
     public void viewDetails(){

@@ -44,8 +44,18 @@ public class Main {
 
                             switch (subChoice) {
                                 case 1:
-                                    System.out.println("Enter an account name:");
-                                    accountManager.createAccount(scanner.nextLine());
+                                    while (true) { //enforce valid account name
+                                        System.out.println("Enter a full name at once: ");
+                                        String nameRegexExpression = "^[A-Z][a-z]+ [A-Z][a-z]+$";
+                                        String name = scanner.nextLine();
+                                        if (name.matches(nameRegexExpression)) {
+                                            accountManager.createAccount(name);
+                                            break;
+                                        }else {
+                                            System.out.println("Enter valid name!");
+                                            System.out.println("Both names must start with UpperCase");
+                                        }
+                                    }
                                     break;
                                 case 2:
                                     accountManager.listAccounts();
