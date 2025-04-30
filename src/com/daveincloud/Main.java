@@ -54,10 +54,10 @@ public class Main {
                                     //login to account
                                     System.out.println("enter account Number:");
                                     try {
-                                        int accountNo = Integer.parseInt(scanner.nextLine());
+                                        long accountNo = Long.parseLong(scanner.nextLine());
                                         accountManager.login(accountNo);
                                         break;
-                                    } catch (NumberFormatException e) { //Todo: configure to catch numbers not in database
+                                    } catch (NumberFormatException e) {
                                         System.out.println("Numbers only!!");
                                     }
 

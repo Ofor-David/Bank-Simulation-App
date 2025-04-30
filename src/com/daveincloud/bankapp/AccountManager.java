@@ -34,7 +34,7 @@ public class AccountManager {
     }
 
     //login to account
-    public void login(int accountNumber){
+    public void login(long accountNumber){
         //find account with matching account number
         if (accounts.isEmpty()) {
             //no accounts
