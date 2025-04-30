@@ -70,9 +70,7 @@ public class AccountManager {
                                     break;
                                 case 2:
                                     //withdraw
-                                    System.out.println("Enter amount to withdraw:");
-                                    double toWithdraw = Double.parseDouble(scanner.nextLine());
-                                    account.withdraw(toWithdraw);
+                                    account.withdraw();
                                     System.out.println("--------------------\nPress Anything...");
                                     scanner.nextLine();
                                     break;
@@ -91,8 +89,9 @@ public class AccountManager {
                     }
 
                     //Todo: System.out.println("Press 4 to view transaction history");
-
-                    //Todo: account functionality
+                    //Todo: fix negative balance, and negative deposit
+                    //Todo: break out of page on account deletion
+                    //Todo: Close scanners
                 }
             }
         }
