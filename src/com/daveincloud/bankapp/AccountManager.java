@@ -32,5 +32,34 @@ public class AccountManager {
         System.out.println("Press Anything...\n-------------------");
         new Scanner(System.in).nextLine(); //wait on user input
     }
+
+    //login to account
+    public void login(int accountNumber){
+        //find account with matching account number
+        if (accounts.isEmpty()) {
+            //no accounts
+            System.out.println("No accounts created yet, create some!!");
+            System.out.println("press anything");
+            new Scanner(System.in).nextLine(); //press anything
+        }else {
+            for (Account account : accounts) {
+                if (accountNumber == account.accountNo) {
+                    //display account screen
+                    System.out.println("------------------");
+                    System.out.println("Hello " + accountNumber + ",");
+                    System.out.println("Welcome to your personal account dashboard!!");
+                    System.out.println("------------------");
+                    //show account options
+                    System.out.println("Press 1 to deposit");
+                    System.out.println("Press 2 to withdraw");
+                    System.out.println("Press 3 to delete account");
+                    //Todo: System.out.println("Press 4 to view transaction history");
+
+                    //Todo: account functionality
+                }
+            }
+        }
+    }
+
     //delete accounts
 }

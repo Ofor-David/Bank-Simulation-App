@@ -36,7 +36,7 @@ public class Main {
                         //account manager options
                         System.out.println("Click 1 to Create a new account");
                         System.out.println("Click 2 to List all accounts");
-                        //System.out.println("Click 3 to log in to account using name");
+                        System.out.println("Click 3 to log in to account using accountNo");
                         System.out.println("--------------------\nYour Choice: ");
 
                         try { //validate user input
@@ -50,6 +50,17 @@ public class Main {
                                 case 2:
                                     accountManager.listAccounts();
                                     break;
+                                case 3:
+                                    //login to account
+                                    System.out.println("enter account Number:");
+                                    try {
+                                        int accountNo = Integer.parseInt(scanner.nextLine());
+                                        accountManager.login(accountNo);
+                                        break;
+                                    } catch (NumberFormatException e) { //Todo: configure to catch numbers not in database
+                                        System.out.println("Numbers only!!");
+                                    }
+
                                 default:
                                     System.out.println("Enter a valid option...");
                             }
