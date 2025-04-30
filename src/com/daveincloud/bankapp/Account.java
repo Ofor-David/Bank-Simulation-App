@@ -5,39 +5,65 @@ import java.util.Random;
 
 public class Account {
     //account details
-    double balance = 0;
-    final long accountNo;
-    final String accountName;
+    private double accountBal;
+    private long accountNo;
+    private String accountName;
 
     NumberFormat formatter = NumberFormat.getCurrencyInstance();// formats numbers to currency format
 
     //constructor
     public Account(String accountName){
-        this.accountName = accountName;
-        //make unique
-        this.accountNo = new Random().nextLong(1_000_000_000L,9_999_999_999L);
+        setAccountName(accountName);
+        setAccountNumber();
+        setAccountBalance();
     }
     //view account details
     public void viewDetails(){
-        System.out.println("Your Account Details:");
-        System.out.println("\nAccount Name: "+ accountName);
-        System.out.println("Account Number: "+ accountNo);
-        System.out.println("Balance: "+ formatter.format(balance));
+        System.out.println("Hello " + getAccountName() + ",");
+        System.out.println("Account Number: "+ getAccountNo());
+        System.out.println("Balance: "+ formatter.format(getBalance()));
     }
 
     //deposit
-    public void deposit(float amount){
-        balance+=amount;
+    public void deposit(double amount){
+        accountBal+=amount;
         System.out.println("successfully deposited " + formatter.format(amount));
+        System.out.println("New Balance: "+formatter.format(getBalance()));
     }
     //withdraw
-    public void withdraw(float amount){
-        balance-=amount;
-        System.out.println("Successfully withdrawal of " + formatter.format(amount));
+    public void withdraw(double amount){
+        accountBal-=amount;
+        System.out.println(formatter.format(amount) + " Withdrawn succesfully.");
+        System.out.println("New Balance: "+formatter.format(getBalance()));
     }
 
     //override default toString function with this
     public String toString(){
-        return accountName+": "+accountNo;
+        return "Account Name: "+accountName+"\nAccount Number: "+accountNo+"\n";
     }
+
+    //getters
+    public String getAccountName(){
+        return accountName;
+    }
+    public double getBalance(){
+        return accountBal;
+    }
+    public long getAccountNo(){
+        return accountNo;
+    }
+
+    //setters
+    public void setAccountName(String accountNameToBe){
+        this.accountName = accountNameToBe;
+    }
+    public void setAccountNumber(){
+        //make unique
+        this.accountNo = new Random().nextLong(1_000_000_000L,9_999_999_999L);
+    }
+    public void setAccountBalance(){
+        this.accountBal = 0;
+    }
+
+
 }
