@@ -36,6 +36,7 @@ public class Account {
         System.out.println("Successfully withdrawal of " + formatter.format(amount));
     }
 
+    //override default toString function with this
     public String toString(){
         return accountName+": "+accountNo;
     }

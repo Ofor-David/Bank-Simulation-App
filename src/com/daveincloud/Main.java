@@ -4,36 +4,42 @@ import com.daveincloud.bankapp.AccountManager;
 
 import java.util.Scanner;
 
-//byte = 127
-//short = 32k
-//int = 2B
+// byte = 127
+// short = 32k
+// int = 2B
 public class Main {
     public static void main(String[] args){
-        //create scanner and choice ints
+
         Scanner scanner = new Scanner(System.in);
-        int choice;
+        int choice; // Used to switch between apps
 
         while(true) {
-            //first screen
+            // first screen
             System.out.println("Choose an app to test out!\n--------------------");
-            //add more apps here
+
+            // add more apps here
             System.out.println("1. Bank Simulation App");
+
             System.out.println("-------------------- \nChoose an option...");
-            //  handle exceptions
+            // handle inputs
             try{
                 choice = Integer.parseInt(scanner.nextLine());
-                //enter second screen and create screen sub choice
+
+                //enter second screen
                 if (choice == 1) {
                     AccountManager accountManager = new AccountManager(); //account manager called here so that manager persists
 
                     while (true) {
-                        int subChoice;
-                        System.out.println("--------------------\nWelcome to the account Management Dashboard!!");
-                        System.out.println("--------------------\nClick 1 to Create a new account");
+                        int subChoice; //subChoice for selecting options
+                        System.out.println("--------------------\nWelcome to the account Management Dashboard!!--------------------");
+
+                        //account manager options
+                        System.out.println("Click 1 to Create a new account");
                         System.out.println("Click 2 to List all accounts");
+                        //System.out.println("Click 3 to log in to account using name");
                         System.out.println("--------------------\nYour Choice: ");
 
-                        try {
+                        try { //validate user input
                             subChoice = Integer.parseInt(scanner.nextLine());
 
                             switch (subChoice) {

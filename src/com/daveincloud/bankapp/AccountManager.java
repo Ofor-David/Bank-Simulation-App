@@ -6,13 +6,12 @@ import java.util.Scanner;
 public class AccountManager {
     //all accounts
     ArrayList<Account> accounts = new ArrayList<>();
-    //Scanner scanner = new Scanner(System.in);
-    //int choice;
 
     //list accounts
     public void listAccounts() {
         System.out.println("------------------");
-        if (accounts.isEmpty()){
+
+        if (accounts.isEmpty()){  //no accounts
             System.out.println("No accounts created yet, create some!!");
         }else {
             for (Account account : accounts) {
@@ -20,17 +19,18 @@ public class AccountManager {
             }
         }
         System.out.println("-------------------\nPress Anything...");
-        new Scanner(System.in).nextLine();
+        new Scanner(System.in).nextLine(); //wait on user input
     }
 
     //create accounts
     public void createAccount(String accountName) {
         System.out.println("-------------------");
+        //instantiate new account
         Account account = new Account(accountName);
-        accounts.add(account);
+        accounts.add(account); //add to list of accounts
         System.out.println("Account Created");
         System.out.println("Press Anything...\n-------------------");
-        new Scanner(System.in).nextLine();
+        new Scanner(System.in).nextLine(); //wait on user input
     }
     //delete accounts
 }
