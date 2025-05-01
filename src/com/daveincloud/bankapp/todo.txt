@@ -1,1 +1,2 @@
-//Todo: Fix duplicate transaction entries
+//Todo: Dont allow withdraw if deposit hasnt already been made
+//Todo: back option

@@ -1,6 +1,5 @@
 package com.daveincloud.bankapp;
 
-import javax.swing.*;
 import java.text.NumberFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -13,7 +12,10 @@ public class Account {
     private long accountNo;
     private String accountName;
     private static ArrayList<Account> accounts = new ArrayList<>(); //list of generated accounts
-    private static ArrayList<Transaction> transactions = new ArrayList<>();
+
+    private TransactionList transactionList = new TransactionList();
+    private static ArrayList<TransactionList> arrayOfTransactionLists = new ArrayList<>();
+
     Scanner scanner = new Scanner(System.in);
 
     NumberFormat formatter = NumberFormat.getCurrencyInstance();// formats numbers to currency format
@@ -24,6 +26,8 @@ public class Account {
             setAccountNumber();
             setAccountBalance();
             accounts.add(this);
+            this.transactionList.setOwner(this);
+            arrayOfTransactionLists.add(this.transactionList);
     }
     //view account details
     public void viewDetails(){
@@ -47,7 +51,7 @@ public class Account {
                     System.out.println("New Balance: " + formatter.format(getBalance()));
                     //create new transaction
                     Transaction t = new  Transaction("deposit", amount, LocalDateTime.now(),this);
-                    transactions.add(t);
+                    this.transactionList.add(t);
                     break;
                 }else{
                     System.out.println("Must be greater than 0!");
@@ -67,11 +71,11 @@ public class Account {
                 double amount = Double.parseDouble(scanner.nextLine());
                 if (amount<= getBalance() && amount >= 1){
                     accountBal-=amount;
-                    System.out.println(formatter.format(amount) + " Withdrawn succesfully.");
+                    System.out.println(formatter.format(amount) + " Withdrawn successfully.");
                     System.out.println("New Balance: "+formatter.format(getBalance()));
                     //create new transaction
                     Transaction t = new Transaction("withdraw", amount, LocalDateTime.now(),this);
-                    transactions.add(t);
+                    this.transactionList.add(t);
                     break;
                 }else if(amount < 1){ //refuse negative
                     System.out.println("Minimum withdrawal is: $1 or greater!!");
@@ -101,9 +105,15 @@ public class Account {
     public long getAccountNo(){
         return accountNo;
     }
-    public ArrayList<Transaction> getTransactions(){
-        return transactions;
+
+    public ArrayList<Transaction> getTransactionList(){
+        if (arrayOfTransactionLists.contains(this.transactionList)){
+            return this.transactionList;
+        }else{
+            return new ArrayList<>();
+        }
     }
+
 
     //setters
     public void setAccountName(String accountNameToBe){
