@@ -1,6 +1,7 @@
 package com.daveincloud.bankapp;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Scanner;
 
 public class AccountManager {
@@ -36,16 +37,26 @@ public class AccountManager {
 
     //login to account
     public void login(long accountNumber){
+        boolean accountDeleted = false;
+        int indexToRemove = -1; // index of account to remove on deletion
+
         //find account with matching account number
         if (accounts.isEmpty()) {
             //no accounts
             System.out.println("No accounts created yet, create some!!");
-            System.out.println("press anything");
+            System.out.println("Press Anything...");
             scanner.nextLine(); //press anything
-        }else {
+
+        }else if(!accountExists(accountNumber)) { //account not found
+            System.out.println("Account not found!\nPress Anything...");
+            scanner.nextLine();
+        }
+        else{
+
+            //call search account
             for (Account account : accounts) {
                 if (accountNumber == account.getAccountNo()) {
-                    while(accounts.contains(account)){
+                    while(!accountDeleted){
                         //display account screen
                         System.out.println("------------------------");
                         System.out.println("Welcome to your personal account dashboard!!");
@@ -74,10 +85,11 @@ public class AccountManager {
                                     scanner.nextLine();
                                     break;
                                 case 3:
-                                    //delete account
-                                    System.out.println("Account deleted successully!\n Press anything");
+                                    //set account to be deleted upon exit
+                                    System.out.println("Request to delete account received!\nPress Anything...");
                                     scanner.nextLine();
-                                    accounts.remove(account);
+                                    indexToRemove = accounts.indexOf(account); //returns index of current account
+                                    accountDeleted = true;
                                     break;
                                 default:
                                     System.out.println("Invalid option");
@@ -86,17 +98,25 @@ public class AccountManager {
                             System.out.println("Numbers only!!");
                         }
                     }
-
                     //Todo: System.out.println("Press 4 to view transaction history");
                     //Todo: Unique account number
-                    //Todo: break out of page on account deletion
                     //Todo: Close scanners
-                }else{
-                    break;
                 }
+            }
+            //remove account after breaking from the loop
+            if (indexToRemove>=0) { //prevents -int error
+                accounts.remove(indexToRemove);
             }
         }
     }
 
-    //delete accounts
+    boolean accountExists(long accountNo){
+        for (Account account : accounts){
+            if (account.getAccountNo() == accountNo){
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
