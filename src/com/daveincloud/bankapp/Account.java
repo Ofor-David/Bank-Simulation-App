@@ -13,6 +13,7 @@ public class Account {
     private long accountNo;
     private String accountName;
     private static ArrayList<Account> accounts = new ArrayList<>(); //list of generated accounts
+    private static ArrayList<Transaction> transactions = new ArrayList<>();
     Scanner scanner = new Scanner(System.in);
 
     NumberFormat formatter = NumberFormat.getCurrencyInstance();// formats numbers to currency format
@@ -35,7 +36,7 @@ public class Account {
     }
 
     //deposit
-    public Transaction deposit(){
+    public void deposit(){
         while (true) {
             System.out.println("Enter deposit amount:");
             try {
@@ -45,8 +46,9 @@ public class Account {
                     System.out.println("successfully deposited " + formatter.format(amount));
                     System.out.println("New Balance: " + formatter.format(getBalance()));
                     //create new transaction
-                    return new Transaction("deposit", amount, LocalDateTime.now(),this);
-
+                    Transaction t = new  Transaction("deposit", amount, LocalDateTime.now(),this);
+                    transactions.add(t);
+                    break;
                 }else{
                     System.out.println("Must be greater than 0!");
                 }
@@ -57,7 +59,7 @@ public class Account {
         }
     }
     //withdraw
-    public Transaction withdraw(){
+    public void withdraw(){
         while (true){
             System.out.println("Current balance: "+ viewBalance());
             System.out.println("Enter amount to withdraw: ");
@@ -68,8 +70,9 @@ public class Account {
                     System.out.println(formatter.format(amount) + " Withdrawn succesfully.");
                     System.out.println("New Balance: "+formatter.format(getBalance()));
                     //create new transaction
-                    return new Transaction("withdraw", amount, LocalDateTime.now(),this);
-
+                    Transaction t = new Transaction("withdraw", amount, LocalDateTime.now(),this);
+                    transactions.add(t);
+                    break;
                 }else if(amount < 1){ //refuse negative
                     System.out.println("Minimum withdrawal is: $1 or greater!!");
                 }else{ //refuse
@@ -97,6 +100,9 @@ public class Account {
     }
     public long getAccountNo(){
         return accountNo;
+    }
+    public ArrayList<Transaction> getTransactions(){
+        return transactions;
     }
 
     //setters

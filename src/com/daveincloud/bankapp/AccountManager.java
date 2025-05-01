@@ -7,7 +7,7 @@ public class AccountManager {
     Scanner scanner = new Scanner(System.in);
     //all accounts
     ArrayList<Account> accounts = new ArrayList<>();
-    ArrayList<Transaction> transactions = new ArrayList<>();
+    ArrayList<ArrayList<Transaction>> transactionList = new ArrayList<>();
 
     //list accounts
     public void listAccounts() {
@@ -39,7 +39,7 @@ public class AccountManager {
 
     //login to account
     public void login(long accountNumber){
-        boolean accountDeleted = false;
+        boolean loggedOut = false;
         int indexToRemove = -1; // index of account to remove on deletion
 
         //find account with matching account number
@@ -58,7 +58,7 @@ public class AccountManager {
             //call search account
             for (Account account : accounts) {
                 if (accountNumber == account.getAccountNo()) {
-                    while(!accountDeleted){
+                    while(!loggedOut){
                         //display account screen
                         System.out.println("------------------------");
                         System.out.println("Welcome to your personal account dashboard!!");
@@ -71,33 +71,45 @@ public class AccountManager {
                         System.out.println("Press 2 to withdraw");
                         System.out.println("Press 3 to view Transaction History");
                         System.out.println("Press 4 to delete account");
+                        System.out.println("Press 5 to logout");
 
                         try {
                             int choice = Integer.parseInt(scanner.nextLine());
                             switch (choice){
                                 case 1:
                                     //deposit
-                                    transactions.add(account.deposit());
+                                    account.deposit();
+                                    transactionList.add(account.getTransactions());
                                     System.out.println("--------------------\nPress Anything...");
                                     scanner.nextLine();
                                     break;
                                 case 2:
                                     //withdraw
-                                    transactions.add(account.withdraw());
+                                    account.withdraw();
+                                    transactionList.add(account.getTransactions());
                                     System.out.println("--------------------\nPress Anything...");
                                     scanner.nextLine();
                                     break;
                                 case 3:
                                     //display transaction history
-                                    if (transactions.isEmpty()){
+                                    if (transactionList.isEmpty()){
                                         System.out.println("--------------------");
                                         System.out.println("No transactions made yet!");
                                         System.out.println("--------------------\nPress Anything...");
                                         scanner.nextLine();
                                     }else {
-                                        for (Transaction transaction : transactions) {
-                                            if (transaction.getInitiator() == account){
-                                            System.out.println(transaction.toString());
+                                        for (ArrayList<Transaction> transaction : transactionList) {
+                                            if (transaction.isEmpty()){
+                                                System.out.println("--------------------");
+                                                System.out.println("No transactions made yet!");
+                                                System.out.println("--------------------\nPress Anything...");
+                                                scanner.nextLine();
+                                            }else {
+                                                for (Transaction t: transaction){
+                                                    if (t.getInitiator() == account){
+                                                    System.out.println(t.toString());
+                                                    }
+                                                }
                                             }
                                         }
                                         System.out.println("--------------------\nPress Anything...");
@@ -109,7 +121,11 @@ public class AccountManager {
                                     System.out.println("Request to delete account received!\nPress Anything...");
                                     scanner.nextLine();
                                     indexToRemove = accounts.indexOf(account); //returns index of current account
-                                    accountDeleted = true;
+                                    loggedOut = true;
+                                    break;
+                                case 5:
+                                    //logout
+                                    loggedOut = true;
                                     break;
                                 default:
                                     System.out.println("Invalid option");
