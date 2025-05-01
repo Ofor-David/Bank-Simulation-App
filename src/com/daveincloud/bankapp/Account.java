@@ -2,6 +2,7 @@ package com.daveincloud.bankapp;
 
 import javax.swing.*;
 import java.text.NumberFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
@@ -34,7 +35,7 @@ public class Account {
     }
 
     //deposit
-    public void deposit(){
+    public Transaction deposit(){
         while (true) {
             System.out.println("Enter deposit amount:");
             try {
@@ -43,7 +44,9 @@ public class Account {
                     accountBal += amount;
                     System.out.println("successfully deposited " + formatter.format(amount));
                     System.out.println("New Balance: " + formatter.format(getBalance()));
-                    break;
+                    //create new transaction
+                    return new Transaction("deposit", amount, LocalDateTime.now(),this);
+
                 }else{
                     System.out.println("Must be greater than 0!");
                 }
@@ -54,7 +57,7 @@ public class Account {
         }
     }
     //withdraw
-    public void withdraw(){
+    public Transaction withdraw(){
         while (true){
             System.out.println("Current balance: "+ viewBalance());
             System.out.println("Enter amount to withdraw: ");
@@ -64,7 +67,9 @@ public class Account {
                     accountBal-=amount;
                     System.out.println(formatter.format(amount) + " Withdrawn succesfully.");
                     System.out.println("New Balance: "+formatter.format(getBalance()));
-                    break;
+                    //create new transaction
+                    return new Transaction("withdraw", amount, LocalDateTime.now(),this);
+
                 }else if(amount < 1){ //refuse negative
                     System.out.println("Minimum withdrawal is: $1 or greater!!");
                 }else{ //refuse
@@ -78,7 +83,7 @@ public class Account {
         }
     }
 
-    //override default toString function with this
+    @Override
     public String toString(){
         return "Account Name: "+accountName+"\nAccount Number: "+accountNo+"\n";
     }

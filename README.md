@@ -1,6 +1,6 @@
 # Java for beginners
-A collection of simple projects for beginers starting out with java.
-Projects in this repo is:
+A collection of simple projects for beginners starting out with java.
+This repo includes:
 
 ## Bank Simulation App
 ### Features
@@ -10,10 +10,6 @@ Projects in this repo is:
 - Withdraw
 - View balances & Details
 - Transaction history
-### Skills Displayed
-- Inheritance
-- Encapsulation
-- Polymorphism
 
 ## Contributing
 Contributions are welcome! Please fork the repository and submit a pull request.

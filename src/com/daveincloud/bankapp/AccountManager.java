@@ -7,6 +7,7 @@ public class AccountManager {
     Scanner scanner = new Scanner(System.in);
     //all accounts
     ArrayList<Account> accounts = new ArrayList<>();
+    ArrayList<Transaction> transactions = new ArrayList<>();
 
     //list accounts
     public void listAccounts() {
@@ -68,24 +69,42 @@ public class AccountManager {
                         //show account options
                         System.out.println("Press 1 to deposit");
                         System.out.println("Press 2 to withdraw");
-                        System.out.println("Press 3 to delete account");
+                        System.out.println("Press 3 to view Transaction History");
+                        System.out.println("Press 4 to delete account");
 
                         try {
                             int choice = Integer.parseInt(scanner.nextLine());
                             switch (choice){
                                 case 1:
                                     //deposit
-                                    account.deposit();
+                                    transactions.add(account.deposit());
                                     System.out.println("--------------------\nPress Anything...");
                                     scanner.nextLine();
                                     break;
                                 case 2:
                                     //withdraw
-                                    account.withdraw();
+                                    transactions.add(account.withdraw());
                                     System.out.println("--------------------\nPress Anything...");
                                     scanner.nextLine();
                                     break;
                                 case 3:
+                                    //display transaction history
+                                    if (transactions.isEmpty()){
+                                        System.out.println("--------------------");
+                                        System.out.println("No transactions made yet!");
+                                        System.out.println("--------------------\nPress Anything...");
+                                        scanner.nextLine();
+                                    }else {
+                                        for (Transaction transaction : transactions) {
+                                            if (transaction.getInitiator() == account){
+                                            System.out.println(transaction.toString());
+                                            }
+                                        }
+                                        System.out.println("--------------------\nPress Anything...");
+                                        scanner.nextLine();
+                                    }
+                                    break;
+                                case 4:
                                     //set account to be deleted upon exit
                                     System.out.println("Request to delete account received!\nPress Anything...");
                                     scanner.nextLine();
