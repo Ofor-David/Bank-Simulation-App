@@ -28,5 +28,8 @@ public class Transaction {
     public Account getInitiator(){
         return initiator;
     }
+    public String getType(){
+        return this.type;
+    }
 
 }

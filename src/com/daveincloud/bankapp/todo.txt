@@ -1,2 +1,1 @@
-//Todo: Dont allow withdraw if deposit hasnt already been made
 //Todo: back option

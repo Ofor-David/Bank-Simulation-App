@@ -15,7 +15,7 @@ public class Account {
 
     private TransactionList transactionList = new TransactionList();
     private static ArrayList<TransactionList> arrayOfTransactionLists = new ArrayList<>();
-
+    private boolean hasDeposited = false;
     Scanner scanner = new Scanner(System.in);
 
     NumberFormat formatter = NumberFormat.getCurrencyInstance();// formats numbers to currency format
@@ -26,6 +26,7 @@ public class Account {
             setAccountNumber();
             setAccountBalance();
             accounts.add(this);
+            //this.hasDeposited = false;
             this.transactionList.setOwner(this);
             arrayOfTransactionLists.add(this.transactionList);
     }
@@ -52,6 +53,9 @@ public class Account {
                     //create new transaction
                     Transaction t = new  Transaction("deposit", amount, LocalDateTime.now(),this);
                     this.transactionList.add(t);
+                    if (!this.hasDeposited) {
+                        this.hasDeposited = true;
+                    }
                     break;
                 }else{
                     System.out.println("Must be greater than 0!");
@@ -64,29 +68,33 @@ public class Account {
     }
     //withdraw
     public void withdraw(){
-        while (true){
-            System.out.println("Current balance: "+ viewBalance());
-            System.out.println("Enter amount to withdraw: ");
-            try{
-                double amount = Double.parseDouble(scanner.nextLine());
-                if (amount<= getBalance() && amount >= 1){
-                    accountBal-=amount;
-                    System.out.println(formatter.format(amount) + " Withdrawn successfully.");
-                    System.out.println("New Balance: "+formatter.format(getBalance()));
-                    //create new transaction
-                    Transaction t = new Transaction("withdraw", amount, LocalDateTime.now(),this);
-                    this.transactionList.add(t);
-                    break;
-                }else if(amount < 1){ //refuse negative
-                    System.out.println("Minimum withdrawal is: $1 or greater!!");
-                }else{ //refuse
-                    System.out.println("Enter amount less then balance!! ");
+        if (this.hasDeposited) {
+            while (true) {
+                System.out.println("Current balance: " + viewBalance());
+                System.out.println("Enter amount to withdraw: ");
+                try {
+                    double amount = Double.parseDouble(scanner.nextLine());
+                    if (amount <= getBalance() && amount >= 1) {
+                        accountBal -= amount;
+                        System.out.println(formatter.format(amount) + " Withdrawn successfully.");
+                        System.out.println("New Balance: " + formatter.format(getBalance()));
+                        //create new transaction
+                        Transaction t = new Transaction("withdraw", amount, LocalDateTime.now(), this);
+                        this.transactionList.add(t);
+                        break;
+                    } else if (amount < 1) { //refuse negative
+                        System.out.println("Minimum withdrawal is: $1 or greater!!");
+                    } else { //refuse
+                        System.out.println("Enter amount less then balance!! ");
+                    }
+
+                } catch (NumberFormatException e) {
+                    System.out.println("Numbers only!!");
                 }
 
-            }catch (NumberFormatException e){
-                System.out.println("Numbers only!!");
             }
-
+        }else {
+            System.out.println("You have to deposit first!");
         }
     }
 
