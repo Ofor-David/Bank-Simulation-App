@@ -1,7 +1,6 @@
 package com.daveincloud.bankapp;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Scanner;
 
 public class AccountManager {
@@ -27,6 +26,8 @@ public class AccountManager {
     //create accounts
     public void createAccount(String accountName) {
         System.out.println("-------------------");
+
+        //check if account already exits
         //instantiate new account
         Account account = new Account(accountName);
         accounts.add(account); //add to list of accounts
@@ -98,9 +99,6 @@ public class AccountManager {
                             System.out.println("Numbers only!!");
                         }
                     }
-                    //Todo: System.out.println("Press 4 to view transaction history");
-                    //Todo: Unique account number
-                    //Todo: Close scanners
                 }
             }
             //remove account after breaking from the loop
@@ -118,5 +116,4 @@ public class AccountManager {
         }
         return false;
     }
-
 }

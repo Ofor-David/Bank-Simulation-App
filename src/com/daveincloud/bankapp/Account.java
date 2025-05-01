@@ -2,6 +2,7 @@ package com.daveincloud.bankapp;
 
 import javax.swing.*;
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -10,6 +11,7 @@ public class Account {
     private double accountBal;
     private long accountNo;
     private String accountName;
+    private static ArrayList<Account> accounts = new ArrayList<>(); //list of generated accounts
     Scanner scanner = new Scanner(System.in);
 
     NumberFormat formatter = NumberFormat.getCurrencyInstance();// formats numbers to currency format
@@ -19,6 +21,7 @@ public class Account {
             setAccountName(accountName);
             setAccountNumber();
             setAccountBalance();
+            accounts.add(this);
     }
     //view account details
     public void viewDetails(){
@@ -96,8 +99,18 @@ public class Account {
         this.accountName = accountNameToBe;
     }
     public void setAccountNumber(){
-        //make unique
-        this.accountNo = new Random().nextLong(1_000_000_000L,9_999_999_999L);
+        boolean isUnique = false;
+
+        while (!isUnique){
+            this.accountNo = new Random().nextLong(1_000_000_000L,9_999_999_999L);
+            isUnique = true; //assume newly generated number is unique
+            for (Account account : accounts){ //check if its actually unique
+                if (this.accountNo == account.getAccountNo()) { //aleady exists
+                    isUnique = false;
+                    break;
+                }
+            }
+        }
     }
     public void setAccountBalance(){
         this.accountBal = 0;
