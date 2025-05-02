@@ -11,13 +11,14 @@ public class Account {
     private double accountBal;
     private long accountNo;
     private String accountName;
-    private static ArrayList<Account> accounts = new ArrayList<>(); //list of generated accounts
 
+    private static ArrayList<Account> accounts = new ArrayList<>(); //list of generated accounts
     private TransactionList transactionList = new TransactionList();
     private static ArrayList<TransactionList> arrayOfTransactionLists = new ArrayList<>();
-    private boolean hasDeposited = false;
-    Scanner scanner = new Scanner(System.in);
 
+    private boolean hasDeposited = false;
+
+    Scanner scanner = new Scanner(System.in);
     NumberFormat formatter = NumberFormat.getCurrencyInstance();// formats numbers to currency format
 
     //constructor
@@ -53,6 +54,7 @@ public class Account {
                     //create new transaction
                     Transaction t = new  Transaction("deposit", amount, LocalDateTime.now(),this);
                     this.transactionList.add(t);
+
                     if (!this.hasDeposited) {
                         this.hasDeposited = true;
                     }
@@ -68,6 +70,7 @@ public class Account {
     }
     //withdraw
     public void withdraw(){
+        //Only allow withdrawal if already first deposited
         if (this.hasDeposited) {
             while (true) {
                 System.out.println("Current balance: " + viewBalance());

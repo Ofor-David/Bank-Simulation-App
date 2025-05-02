@@ -37,45 +37,60 @@ public class Main {
                         System.out.println("Click 1 to Create a new account");
                         System.out.println("Click 2 to List all accounts");
                         System.out.println("Click 3 to log in to account using accountNo");
+                        System.out.println("Click q to go back");
                         System.out.println("--------------------\nYour Choice: ");
+                        String input = scanner.nextLine();
+                        if (input.equalsIgnoreCase("q")){
+                            break;
+                        }else {
+                            try { //validate user input
+                                subChoice = Integer.parseInt(input);
 
-                        try { //validate user input
-                            subChoice = Integer.parseInt(scanner.nextLine());
-
-                            switch (subChoice) {
-                                case 1:
-                                    while (true) { //enforce valid account name
-                                        System.out.println("Enter a full name at once: ");
-                                        String nameRegexExpression = "^[A-Z][a-z]+ [A-Z][a-z]+$";
-                                        String name = scanner.nextLine();
-                                        if (name.matches(nameRegexExpression)) {
-                                            accountManager.createAccount(name);
-                                            break;
-                                        }else {
-                                            System.out.println("Enter valid name!");
-                                            System.out.println("Both names must start with UpperCase");
+                                switch (subChoice) {
+                                    case 1:
+                                        while (true) { //enforce valid account name
+                                            System.out.println("Enter a full name at once or click q to cancel: ");
+                                            String nameRegexExpression = "^[A-Z][a-z]+ [A-Z][a-z]+$";
+                                            input = scanner.nextLine();
+                                            if (input.equalsIgnoreCase("q")) {
+                                                break;
+                                            }else {
+                                                if (input.matches(nameRegexExpression)) {
+                                                    accountManager.createAccount(input);
+                                                    break;
+                                                } else {
+                                                    System.out.println("Enter valid name!");
+                                                    System.out.println("Both names must start with UpperCase");
+                                                }
+                                            }
                                         }
-                                    }
-                                    break;
-                                case 2:
-                                    accountManager.listAccounts();
-                                    break;
-                                case 3:
-                                    //login to account
-                                    System.out.println("enter account Number:");
-                                    try {
-                                        long accountNo = Long.parseLong(scanner.nextLine());
-                                        accountManager.login(accountNo);
                                         break;
-                                    } catch (NumberFormatException e) {
-                                        System.out.println("Numbers only!!");
-                                    }
-
-                                default:
-                                    System.out.println("Enter a valid option...");
+                                    case 2:
+                                        accountManager.listAccounts();
+                                        break;
+                                    case 3:
+                                        //login to account
+                                        while (true){
+                                            System.out.println("enter account Number or click q to go back:");
+                                            input = scanner.nextLine();
+                                            if (input.equalsIgnoreCase("q")) {
+                                                break;
+                                            }else {
+                                                try {
+                                                    long accountNo = Long.parseLong(input);
+                                                    accountManager.login(accountNo);
+                                                    break;
+                                                } catch (NumberFormatException e) {
+                                                    System.out.println("Numbers only!!");
+                                                }
+                                            }
+                                        }
+                                    default:
+                                        System.out.println("Enter a valid option...");
+                                }
+                            } catch (NumberFormatException e) {
+                                System.out.println("Numbers only!!");
                             }
-                        }catch (NumberFormatException e){
-                            System.out.println("Numbers only!!");
                         }
                     }
                 } else {
