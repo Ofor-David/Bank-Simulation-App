@@ -1,8 +1,5 @@
-# Java for beginners
-A collection of simple projects for beginners starting out with java.
-This repo includes:
-
-## Bank Simulation App
+# Bank Simulation App
+A simple yet functional banking system written in Java that allows users to create and manage accounts, deposit and withdraw funds, view account balances and details, and track their complete transaction history. It’s designed to simulate core banking operations in an intuitive and user-friendly way.
 ### Features
 - Create accounts
 - List all accounts
